@@ -1,0 +1,1 @@
+V13.1: Yalnızca admin giriş yönlendirmesi düzeltildi. Normal login ekranında admin hesabı kullanılırsa admin oturumu açılır ve admin.php yönlendirilir. Admin-login sayfası da doğrudan admin.php açar.

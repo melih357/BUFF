@@ -1,0 +1,1 @@
+Yalnızca admin girişindeki eksik admin_roles/admin_role_assignments bağımlılığı düzeltildi. Mevcut veritabanı silinmeden otomatik onarım yapılır.

@@ -1,0 +1,3 @@
+<?php
+declare(strict_types=1);require_once dirname(__DIR__,2).'/bootstrap.php';require_post();$me=require_auth();ensure_v16_schema(db());
+try{$d=request_json();$id=(int)($d['clipId']??0);v17_content('clip',$id,$me);if($id<1)json_response(['message'=>'Geçersiz klip.'],400);db()->prepare('INSERT INTO clip_shares (clip_id,user_id) VALUES (?,?)')->execute([$id,(int)$me['id']]);$st=db()->prepare('SELECT COUNT(*) FROM clip_shares WHERE clip_id=?');$st->execute([$id]);json_response(['message'=>'Paylaşım sayıldı.','shareCount'=>(int)$st->fetchColumn()]);}catch(Throwable $e){json_response(['message'=>'Paylaşım kaydedilemedi.'],500);}

@@ -1,0 +1,13 @@
+BUFF V14.2 BUILD VALIDATION
+============================
+PHP syntax scan: 119 files, OK
+JavaScript syntax scan: 40 files, OK
+Focused admin/i18n syntax checks: OK
+Async event.currentTarget.reset risky pattern: removed from affected forms
+Admin self ban/block protection: backend + UI
+Account activation: banned/blocked accounts only
+VIP grant: Plus / Pro / Premium + revoke
+Admin delegation: 1h / 3h / 1d / 7d / permanent + revoke
+Admin email/password management: enabled
+Admin language: TR / EN scoped independently
+Site language engine: TR / EN / DE / ES / AR dynamic-node translation fix

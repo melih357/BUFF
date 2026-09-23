@@ -1,0 +1,11 @@
+<?php
+declare(strict_types=1);require_once dirname(__DIR__,2).'/bootstrap.php';require_post();$u=require_auth();
+try{
+ $d=request_json();$predictionId=(int)($d['predictionId']??0);$winningOptionId=(int)($d['winningOptionId']??0);$pdo=db();$pdo->beginTransaction();
+ $st=$pdo->prepare("SELECT * FROM predictions WHERE id=? AND creator_user_id=? AND status='open' FOR UPDATE");$st->execute([$predictionId,(int)$u['id']]);$p=$st->fetch();if(!$p){$pdo->rollBack();json_response(['message'=>'Açık tahmin bulunamadı.'],404);}
+ $o=$pdo->prepare('SELECT id FROM prediction_options WHERE id=? AND prediction_id=?');$o->execute([$winningOptionId,$predictionId]);if(!$o->fetchColumn()){$pdo->rollBack();json_response(['message'=>'Kazanan seçenek geçersiz.'],400);}
+ $tot=(int)($pdo->query('SELECT COALESCE(SUM(points),0) FROM prediction_entries WHERE prediction_id='.(int)$predictionId)->fetchColumn()?:0);$win=$pdo->prepare('SELECT COALESCE(SUM(points),0) FROM prediction_entries WHERE prediction_id=? AND option_id=?');$win->execute([$predictionId,$winningOptionId]);$winPool=(int)$win->fetchColumn();
+ if($winPool>0&&$tot>0){$rows=$pdo->prepare('SELECT id,user_id,points FROM prediction_entries WHERE prediction_id=? AND option_id=?');$rows->execute([$predictionId,$winningOptionId]);foreach($rows->fetchAll() as $r){$pay=max(1,(int)floor($tot*((int)$r['points']/$winPool)));$pdo->prepare('UPDATE prediction_entries SET payout_points=? WHERE id=?')->execute([$pay,(int)$r['id']]);$pdo->prepare('INSERT IGNORE INTO user_loyalty (user_id) VALUES (?)')->execute([(int)$r['user_id']]);$pdo->prepare('UPDATE user_loyalty SET points=points+?,xp=xp+? WHERE user_id=?')->execute([$pay,max(1,(int)floor($pay/10)),(int)$r['user_id']]);}}
+ $pdo->prepare("UPDATE predictions SET status='resolved',winning_option_id=?,resolved_at=NOW() WHERE id=?")->execute([$winningOptionId,$predictionId]);$pdo->commit();
+ v14_publish('prediction.resolved',['predictionId'=>$predictionId,'winningOptionId'=>$winningOptionId,'totalPool'=>$tot],null,(int)$p['stream_id'],'stream.'.(int)$p['stream_id']);json_response(['message'=>'Tahmin sonuçlandırıldı.','totalPool'=>$tot]);
+}catch(Throwable $e){if(db()->inTransaction())db()->rollBack();json_response(['message'=>'Tahmin sonuçlandırılamadı.'],500);} 

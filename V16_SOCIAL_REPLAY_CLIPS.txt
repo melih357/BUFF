@@ -1,0 +1,9 @@
+BUFF V16 Social / Replay / Clips
+- Public BUFF IDs (BF00000001...)
+- ID/username search and mutual-follow messaging
+- 1:1 DM, group chat, photo, voice messages, 1:1 audio call signaling
+- Mutual-follow coin gifts in chat
+- Realtime WebSocket local health detection + DB fallback
+- Automatic stream recording; upload/discard decision when stream ends
+- User-uploaded clips with like/comment/share/repost
+- Upgraded cinematic gift animation layer

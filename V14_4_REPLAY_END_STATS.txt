@@ -1,0 +1,6 @@
+BUFF V14.4
+- VOD recording becomes immediately playable in Replays while HLS/DASH transcodes asynchronously.
+- Stream end is delivered through realtime + polling fallback and viewer chooses Home or Stay.
+- If a public replay becomes available, ended-stream modal exposes a replay button.
+- Creator Studio adds weekly stream/viewer/chat/coin insight cards and stores periodic live metric samples.
+- Studio consumes realtime gift events immediately.

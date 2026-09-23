@@ -1,0 +1,18 @@
+[Unit]
+Description=BUFF V14 Node Realtime Service
+After=network.target mariadb.service redis-server.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/buff
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /var/www/buff/backend/server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

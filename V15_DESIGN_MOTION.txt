@@ -1,0 +1,10 @@
+BUFF V15 DESIGN + MOTION
+========================
+- Kullanıcı ve admin arayüzüne spotlight card, border beam, shimmer button ve reveal-on-scroll katmanı eklendi.
+- Yeni motion katmanı ekstra React/Motion bağımlılığı gerektirmez; vanilla CSS/JS kullanır.
+- prefers-reduced-motion desteği korunur.
+- Auth ekranlarına hafif parallax/ambient hareket, admin kart ve tablo geçişleri, medya kart hover efektleri eklendi.
+- Hediye animasyonları yeniden yazıldı: standard / rare / epic / legendary sahneler, combo rozeti, avatar, parçacık, kalp akışı, ring ve streak efektleri.
+- Watch ve Creator Studio aynı hediye animasyon motorunu kullanır.
+- Gift realtime payload ve event API gönderen avatarını da döndürür.
+- Asset cache sürümü 15.0.0 yapıldı.

@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: buff-node
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['host.docker.internal:3000']
+  - job_name: buff-php
+    metrics_path: /dnm/backend/api/metrics.php
+    static_configs:
+      - targets: ['host.docker.internal:80']

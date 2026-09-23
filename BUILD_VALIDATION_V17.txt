@@ -1,0 +1,84 @@
+BUFF V17 — LOCAL VALIDATION
+Date: 2026-09-22
+
+196 PHP/JavaScript source files: syntax PASS.
+74 functional and regression checks: PASS.
+Runtime: PHP 8.3.6, MySQL 8.0.36, FFmpeg, Chromium 151.
+
+1. PASS — Fresh database installer
+2. PASS — Four independent authenticated accounts
+3. PASS — Concurrent gift retry debits exactly one price
+4. PASS — One gift event, quantity forced to one
+5. PASS — Only one durable gift row
+6. PASS — Idempotency key rejects changed gift
+7. PASS — Insufficient funds never sends a gift
+8. PASS — Private profile hides live streams
+9. PASS — Private stream detail denies outsider
+10. PASS — Private stream signal denies outsider
+11. PASS — Private follow creates pending request
+12. PASS — Owner sees pending request
+13. PASS — Follow request notification stored
+14. PASS — Approved follower can view private stream
+15. PASS — Followers list exposes safe fields
+16. PASS — Private followers list denies outsider
+17. PASS — Chunked clip upload exceeds PHP single-file limit
+18. PASS — Completed upload retry returns same clip
+19. PASS — Clip list returns protected media URL
+20. PASS — Clip media supports byte ranges
+21. PASS — Moment video upload
+22. PASS — Moment photo upload
+23. PASS — Profile feed includes photos and videos
+24. PASS — Owner can see named likes
+25. PASS — Photo comments retain reply parent
+26. PASS — Clip comments include replies
+27. PASS — Reply cannot target another post
+28. PASS — New replay uses owner default private
+29. PASS — Private replay denies follower
+30. PASS — Unlisted replay link works
+31. PASS — Unlisted replay absent from public discovery
+32. PASS — VIP replay rejects ordinary user
+33. PASS — VIP replay allows active VIP
+34. PASS — Expired VIP loses playback access
+35. PASS — Replay gift creates one paid event
+36. PASS — Replay gifts never reanimate in live feed
+37. PASS — Clip gift is paid once
+38. PASS — Privacy change revokes existing media URL
+39. PASS — Private clip comments cannot be read
+40. PASS — Private channel has no content or wallet fields
+41. PASS — Six distinct server-priced coin packages
+42. PASS — New package reaches PayTR configuration validation
+43. PASS — Direct-message coin retries create one transfer
+44. PASS — Private clip blocks like
+45. PASS — Private clip blocks share
+46. PASS — Private clip blocks repost
+47. PASS — Node API filters private streams
+48. PASS — Node API allows approved follower
+49. PASS — WebSocket delivers only to approved follower
+50. PASS — FFmpeg worker creates MP4 playback variant
+51. PASS — Moments renders real posts in Chromium
+52. PASS — Profile own clips tab works
+53. PASS — All six packages visible in purchase UI
+54. PASS — Package selection updates total
+55. PASS — Messages desktop menu toggles
+56. PASS — Messages desktop menu reopens
+57. PASS — Mobile messages menu opens
+58. PASS — Mobile messages menu closes with Escape
+59. PASS — Mobile messages fits viewport
+60. PASS — Accent variable changes immediately
+61. PASS — Polling preserves selected accent
+62. PASS — Privacy control is mounted
+63. PASS — New privacy labels translate to English
+64. PASS — Owner sees four replay visibility choices
+65. PASS — First admin menu row is fully sized
+66. PASS — Uploaded clip has playable video metadata
+67. PASS — Duplicate gift animation is suppressed
+68. PASS — Gift animation finishes and clears
+69. PASS — No uncaught browser JavaScript errors
+70. PASS — V16 upgrade preserves existing wallet
+71. PASS — Installer can be reapplied after upgrade
+72. PASS — Upgrade version is V17
+73. PASS — Malformed HTTP 200 is reported as a failed response
+74. PASS — Retry after malformed response preserves the gift request ID
+
+Limits: no real PayTR charge, no production S3/R2 permission test, no real two-device camera streaming test, no production load test.
+Tests used isolated temporary accounts/databases and generated sample media. Test fixtures are not shipped. Existing .env bytes and original uploads are preserved.

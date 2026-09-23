@@ -1,0 +1,3 @@
+BUFF V12.7
+Canlı gecikme anlık güncelleme, isteğe bağlı VOD tekrar kaydı, coin menüsü çift tıklama düzeltmesi,
+üyelik görünürlüğü, şikayet formu düzeltmesi ve ayrıştırılmış admin şikayet/destek yönetimi.

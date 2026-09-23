@@ -1,0 +1,11 @@
+BUFF V16 BUILD VALIDATION
+=========================
+PHP syntax scan: 139 files, OK
+JavaScript syntax scan: 43 files, OK
+Public user ID layer: enabled
+Mutual-follow DMs/groups/photo/voice/audio-call signaling: enabled
+Friend coin transfer: enabled
+Local realtime health detection + HTTP/DB fallback: enabled
+Automatic stream recording + end-of-stream upload decision: enabled
+User video clip upload + like/comment/share/repost: enabled
+Cinematic gift motion V16: enabled

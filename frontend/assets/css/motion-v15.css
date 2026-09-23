@@ -1,0 +1,186 @@
+/* BUFF V15 — motion & visual polish layer
+   Lightweight vanilla-CSS interpretation of modern spotlight / shimmer / bento UI patterns.
+*/
+:root{
+  --buff-ease:cubic-bezier(.22,.8,.2,1);
+  --buff-spring:cubic-bezier(.16,1,.3,1);
+  --buff-accent:#ff5a36;
+  --buff-accent-2:#ff8a2a;
+  --buff-glow:rgba(255,90,54,.22);
+  --buff-glow-strong:rgba(255,119,53,.36);
+}
+
+html{scroll-behavior:smooth}
+body.buff-motion-ready{overflow-x:hidden}
+body.buff-motion-ready::before,
+body.buff-motion-ready::after{
+  content:"";position:fixed;z-index:-2;pointer-events:none;border-radius:999px;filter:blur(90px);opacity:.26;
+  transform:translate3d(0,0,0);will-change:transform;
+}
+body.buff-motion-ready::before{width:440px;height:440px;left:-180px;top:8vh;background:rgba(255,83,47,.18);animation:buffAuroraA 18s ease-in-out infinite alternate}
+body.buff-motion-ready::after{width:520px;height:520px;right:-240px;top:32vh;background:rgba(255,145,37,.10);animation:buffAuroraB 22s ease-in-out infinite alternate}
+@keyframes buffAuroraA{to{transform:translate3d(120px,90px,0) scale(1.14)}}
+@keyframes buffAuroraB{to{transform:translate3d(-90px,-70px,0) scale(.9)}}
+
+/* glassy chrome without changing layout */
+.app-header,.kickish-header,.kick-header-v9,.admin-v13-topbar{
+  backdrop-filter:saturate(125%) blur(18px);-webkit-backdrop-filter:saturate(125%) blur(18px);
+}
+.app-header,.admin-v13-topbar{box-shadow:0 1px 0 rgba(255,255,255,.035),0 12px 42px rgba(0,0,0,.10)}
+.logo-lockup img,.admin-v13-brand img{transition:transform .45s var(--buff-spring),filter .45s ease}
+.logo-lockup:hover img,.admin-v13-brand:hover img{transform:scale(1.045) rotate(-1deg);filter:drop-shadow(0 8px 22px rgba(255,91,52,.18))}
+
+/* reveal-on-scroll */
+.buff-reveal{opacity:0;transform:translate3d(0,16px,0) scale(.992);filter:blur(5px)}
+.buff-reveal.buff-visible{opacity:1;transform:none;filter:none;transition:opacity .62s var(--buff-ease),transform .62s var(--buff-spring),filter .62s ease}
+.buff-reveal[data-buff-delay="1"]{transition-delay:.05s}.buff-reveal[data-buff-delay="2"]{transition-delay:.1s}.buff-reveal[data-buff-delay="3"]{transition-delay:.15s}
+
+/* spotlight cards — subtle, single-layer, GPU cheap */
+.buff-spotlight{position:relative;isolation:isolate;overflow:hidden;--spot-x:50%;--spot-y:50%}
+.buff-spotlight::before{
+  content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(520px circle at var(--spot-x) var(--spot-y),rgba(255,124,68,.14),transparent 42%);
+  transition:opacity .28s ease;
+}
+.buff-spotlight:hover::before{opacity:1}
+.surface-card,.dashboard-card,.channel-community-card,.admin-v13-card,.auth-v12-formcard,.replay-player-card,.library-surface,.studio-preview-card,.studio-settings-card,.stream-details-card,.stream-about-card{
+  transition:border-color .28s ease,box-shadow .35s ease,transform .35s var(--buff-spring),background-color .28s ease;
+}
+.surface-card:hover,.dashboard-card:hover,.channel-community-card:hover,.admin-v13-card:hover{
+  border-color:color-mix(in srgb,var(--buff-accent) 28%,var(--line,#2d333b));
+  box-shadow:0 18px 55px rgba(0,0,0,.14),0 0 0 1px rgba(255,104,55,.025);
+}
+
+/* 21st-inspired border beam reserved for focal elements */
+.buff-beam{position:relative;isolation:isolate;overflow:hidden}
+.buff-beam::after{
+  content:"";position:absolute;pointer-events:none;z-index:3;inset:-1px;border-radius:inherit;padding:1px;
+  background:conic-gradient(from var(--buff-beam-angle,0deg),transparent 0 68%,rgba(255,125,58,.86) 76%,rgba(255,206,116,.72) 80%,transparent 89%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  animation:buffBeamSpin 5.8s linear infinite;opacity:.68;
+}
+@property --buff-beam-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes buffBeamSpin{to{--buff-beam-angle:360deg}}
+
+/* CTA shimmer / button press */
+.btn,.admin-quick-btn,.admin-icon-btn,.round-control,.filter-chip,.sidebar-nav,.header-nav a,.admin-v13-nav button{
+  position:relative;overflow:hidden;transition:transform .18s var(--buff-spring),box-shadow .25s ease,border-color .25s ease,background-color .25s ease,color .25s ease;
+  transform:translateZ(0)
+}
+.btn::after,.admin-quick-btn::after{
+  content:"";position:absolute;inset:-2px;pointer-events:none;transform:translateX(-140%) skewX(-18deg);
+  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.06) 42%,rgba(255,255,255,.28) 50%,rgba(255,255,255,.06) 58%,transparent 80%);
+}
+.btn:hover::after,.admin-quick-btn:hover::after{animation:buffShimmer .82s ease forwards}
+@keyframes buffShimmer{to{transform:translateX(140%) skewX(-18deg)}}
+.btn:hover,.admin-quick-btn:hover,.admin-icon-btn:hover,.round-control:hover{transform:translateY(-2px)}
+.btn:active,.admin-quick-btn:active,.admin-icon-btn:active,.round-control:active{transform:translateY(0) scale(.975)}
+.btn-primary{box-shadow:0 10px 28px rgba(255,92,45,.15)}
+.btn-primary:hover{box-shadow:0 13px 34px rgba(255,92,45,.28)}
+
+.buff-ripple{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.34);pointer-events:none;transform:translate(-50%,-50%) scale(0);animation:buffRipple .58s ease-out forwards}
+@keyframes buffRipple{to{opacity:0;transform:translate(-50%,-50%) scale(18)}}
+
+/* navigation */
+.header-nav a::before,.sidebar-nav::before,.admin-v13-nav button::before{content:"";position:absolute;left:50%;right:50%;bottom:0;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--buff-accent),var(--buff-accent-2));transition:left .28s var(--buff-ease),right .28s var(--buff-ease),opacity .28s ease;opacity:0}
+.header-nav a:hover::before,.header-nav a.active::before{left:18%;right:18%;opacity:1}
+.sidebar-nav:hover,.admin-v13-nav button:hover{transform:translateX(3px)}
+.admin-v13-nav button.active{box-shadow:inset 2px 0 0 var(--buff-accent),0 0 26px rgba(255,83,45,.05)}
+
+/* media/live cards */
+.live-card,.replay-card,.clip-card,.media-library-card,.channel-video-card,.feed-post{
+  transition:transform .32s var(--buff-spring),box-shadow .32s ease,border-color .26s ease;
+  transform-origin:center center;
+}
+.live-card:hover,.replay-card:hover,.clip-card:hover,.media-library-card:hover,.channel-video-card:hover{transform:translateY(-5px);box-shadow:0 20px 55px rgba(0,0,0,.22)}
+.live-card img,.replay-card img,.clip-card img,.media-library-card img,.channel-video-card img{transition:transform .58s var(--buff-spring),filter .45s ease}
+.live-card:hover img,.replay-card:hover img,.clip-card:hover img,.media-library-card:hover img,.channel-video-card:hover img{transform:scale(1.035);filter:saturate(1.06) contrast(1.02)}
+.live-label,.replay-badge{animation:buffLivePulse 2.2s ease-in-out infinite}
+@keyframes buffLivePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,76,58,0)}50%{box-shadow:0 0 0 6px rgba(255,76,58,.08)}}
+
+/* form focus */
+input,textarea,select{transition:border-color .22s ease,box-shadow .22s ease,background-color .22s ease}
+input:focus,textarea:focus,select:focus{box-shadow:0 0 0 3px rgba(255,91,52,.10),0 10px 30px rgba(0,0,0,.06)!important;border-color:rgba(255,106,55,.62)!important;outline:none}
+.auth-v12-formcard{box-shadow:0 28px 90px rgba(0,0,0,.20)}
+.auth-v12-visual{overflow:hidden}.auth-v12-wall{animation:buffAuthDrift 18s ease-in-out infinite alternate;transform-origin:center}
+@keyframes buffAuthDrift{to{transform:scale(1.045) translate3d(-.6%,.5%,0)}}
+.auth-v12-pills span{animation:buffChipFloat 5s ease-in-out infinite}.auth-v12-pills span:nth-child(2){animation-delay:-1.3s}.auth-v12-pills span:nth-child(3){animation-delay:-2.6s}
+@keyframes buffChipFloat{50%{transform:translateY(-4px)}}
+
+/* modal / dropdown motion */
+.app-modal:not(.hidden) .modal-card,.modal:not(.hidden) .modal-card{animation:buffModalIn .38s var(--buff-spring) both}
+@keyframes buffModalIn{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.notification-panel,.profile-menu,.admin-search-results{transform-origin:top right}
+.notification-panel:not(.hidden),.profile-menu:not(.hidden),.admin-search-results:not(.hidden){animation:buffPopover .24s var(--buff-spring) both}
+@keyframes buffPopover{from{opacity:0;transform:translateY(-6px) scale(.975)}to{opacity:1;transform:none}}
+
+/* Admin polish */
+.admin-v13-sidebar{box-shadow:18px 0 50px rgba(0,0,0,.11)}
+.admin-v13-card{background-image:linear-gradient(145deg,rgba(255,255,255,.018),transparent 46%)}
+.admin-v13-metrics>*{transition:transform .3s var(--buff-spring),border-color .3s ease,box-shadow .3s ease}.admin-v13-metrics>*:hover{transform:translateY(-4px);border-color:rgba(255,107,54,.28);box-shadow:0 16px 45px rgba(0,0,0,.16)}
+.admin-v13-table tbody tr{transition:background-color .2s ease,transform .2s ease}.admin-v13-table tbody tr:hover{background:rgba(255,100,52,.045)}
+.health-dot.ok{animation:buffHealthPulse 1.9s ease-out infinite}@keyframes buffHealthPulse{50%{box-shadow:0 0 0 7px rgba(57,217,138,.05)}}
+.admin-bar-chart>*{transform-origin:bottom;animation:buffBarGrow .65s var(--buff-spring) both}@keyframes buffBarGrow{from{transform:scaleY(.05);opacity:.3}to{transform:scaleY(1);opacity:1}}
+
+/* skeleton shimmer */
+.hero-skeleton,.feed-loading,.skeleton,.loading-card{position:relative;overflow:hidden}
+.hero-skeleton::after,.feed-loading::after,.skeleton::after,.loading-card::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.055),transparent);animation:buffSkeleton 1.5s ease-in-out infinite}
+@keyframes buffSkeleton{to{transform:translateX(100%)}}
+
+/* ===== TikTok-inspired gift scenes ===== */
+.gift-animation-layer{isolation:isolate}
+.buff-gift-scene{position:absolute;inset:0;z-index:20;display:grid;place-items:center;pointer-events:none;opacity:0;overflow:hidden;--gift-accent:#ff663a;--gift-accent2:#ffb23f}
+.buff-gift-scene.is-playing{opacity:1}
+.buff-gift-backdrop{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--gift-accent) 18%,transparent),transparent 55%);opacity:0}
+.buff-gift-scene.is-playing .buff-gift-backdrop{animation:buffGiftBackdrop 1.2s ease-out both}
+.buff-gift-ring{position:absolute;left:50%;top:50%;width:150px;height:150px;border:1px solid color-mix(in srgb,var(--gift-accent2) 75%,transparent);border-radius:50%;opacity:0;transform:translate(-50%,-50%) scale(.4)}
+.buff-gift-ring.r2{animation-delay:.15s!important}.buff-gift-ring.r3{animation-delay:.3s!important}
+.buff-gift-scene.is-playing .buff-gift-ring{animation:buffGiftRing 1.65s ease-out forwards}
+.buff-gift-card{position:relative;z-index:3;display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;min-width:min(420px,calc(100vw - 34px));padding:13px 16px;border-radius:18px;background:linear-gradient(145deg,rgba(13,15,20,.91),rgba(24,20,20,.86));border:1px solid rgba(255,255,255,.13);box-shadow:0 26px 90px rgba(0,0,0,.52),0 0 80px color-mix(in srgb,var(--gift-accent) 16%,transparent);backdrop-filter:blur(22px);opacity:0;transform:translateY(22px) scale(.82)}
+.buff-gift-scene.is-playing .buff-gift-card{animation:buffGiftCardIn .7s var(--buff-spring) forwards}
+.buff-gift-avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,var(--gift-accent),#788cff);color:#fff;font-weight:900;border:2px solid rgba(255,255,255,.8);box-shadow:0 0 0 4px color-mix(in srgb,var(--gift-accent) 18%,transparent)}
+.buff-gift-avatar img{width:100%;height:100%;object-fit:cover}.buff-gift-copy{display:grid;gap:2px}.buff-gift-copy small{color:#c7cdd7;font-size:.72rem}.buff-gift-copy strong{font-size:1.04rem;color:#fff}.buff-gift-copy em{font-style:normal;font-size:.72rem;color:#ffbf78}.buff-gift-icon{position:relative;font-size:2.75rem;filter:drop-shadow(0 10px 20px color-mix(in srgb,var(--gift-accent) 28%,transparent));animation:buffGiftIconBob .78s ease-in-out infinite alternate}.buff-gift-combo{position:absolute;right:-11px;top:-13px;padding:5px 9px;border-radius:999px;background:linear-gradient(135deg,var(--gift-accent),var(--gift-accent2));color:#fff;font-size:.78rem;font-weight:950;box-shadow:0 8px 24px color-mix(in srgb,var(--gift-accent) 34%,transparent)}
+.buff-gift-particle{position:absolute;left:50%;top:50%;font-style:normal;font-size:var(--size,16px);opacity:0;filter:drop-shadow(0 4px 12px rgba(0,0,0,.25))}.buff-gift-scene.is-playing .buff-gift-particle{animation:buffGiftParticle var(--dur,1.6s) var(--buff-ease) var(--delay,0s) forwards}
+.buff-gift-heart{position:absolute;right:6%;bottom:7%;font-size:var(--size,23px);opacity:0}.buff-gift-scene.is-playing .buff-gift-heart{animation:buffGiftHeart var(--dur,2.4s) ease-out var(--delay,0s) forwards}
+.buff-gift-streak{position:absolute;left:-20%;width:140%;height:2px;background:linear-gradient(90deg,transparent,var(--gift-accent2),transparent);opacity:0;transform:rotate(var(--rot,0deg)) translateX(-25%)}.buff-gift-scene.is-playing .buff-gift-streak{animation:buffGiftStreak 1s ease-out var(--delay,0s) forwards}
+
+.buff-gift-standard{place-items:end center;padding-bottom:9vh}.buff-gift-standard .buff-gift-card{min-width:min(360px,calc(100vw - 30px))}
+.buff-gift-rare{--gift-accent:#9b6cff;--gift-accent2:#5cd5ff}.buff-gift-epic{--gift-accent:#ff4f73;--gift-accent2:#ff9b45}.buff-gift-legendary{--gift-accent:#ffb23f;--gift-accent2:#fff0a5;background:radial-gradient(circle at 50% 50%,rgba(255,163,50,.12),rgba(3,4,7,.12) 45%,transparent 70%)}
+.buff-gift-epic .buff-gift-card,.buff-gift-legendary .buff-gift-card{min-width:min(500px,calc(100vw - 36px));padding:18px 22px}.buff-gift-epic .buff-gift-icon{font-size:3.6rem}.buff-gift-legendary .buff-gift-icon{font-size:4.4rem;animation:buffGiftLegendaryIcon .75s ease-in-out infinite alternate}.buff-gift-legendary .buff-gift-card{background:linear-gradient(145deg,rgba(18,16,12,.94),rgba(57,31,14,.89));border-color:rgba(255,219,142,.42);box-shadow:0 0 150px rgba(255,169,51,.28),0 28px 100px rgba(0,0,0,.6)}
+.buff-gift-scene.is-leaving{animation:buffGiftLeave .34s ease forwards}
+@keyframes buffGiftBackdrop{0%{opacity:0;transform:scale(.65)}32%{opacity:1}100%{opacity:.16;transform:scale(1.25)}}
+@keyframes buffGiftRing{0%{opacity:.8;transform:translate(-50%,-50%) scale(.25)}100%{opacity:0;transform:translate(-50%,-50%) scale(3.8)}}
+@keyframes buffGiftCardIn{0%{opacity:0;transform:translateY(24px) scale(.8);filter:blur(8px)}65%{opacity:1;transform:translateY(-4px) scale(1.025);filter:none}100%{opacity:1;transform:none;filter:none}}
+@keyframes buffGiftIconBob{to{transform:translateY(-7px) rotate(4deg) scale(1.07)}}
+@keyframes buffGiftLegendaryIcon{from{transform:rotate(-5deg) scale(.96);filter:drop-shadow(0 0 18px rgba(255,196,72,.28))}to{transform:rotate(5deg) scale(1.1);filter:drop-shadow(0 0 40px rgba(255,196,72,.72))}}
+@keyframes buffGiftParticle{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}18%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) rotate(var(--spin,120deg)) scale(1.35)}}
+@keyframes buffGiftHeart{0%{opacity:0;transform:translate3d(0,10px,0) scale(.6) rotate(0)}14%{opacity:1}100%{opacity:0;transform:translate3d(var(--drift,20px),-300px,0) scale(1.45) rotate(var(--turn,18deg))}}
+@keyframes buffGiftStreak{0%{opacity:0;transform:rotate(var(--rot)) translateX(-34%)}35%{opacity:.7}100%{opacity:0;transform:rotate(var(--rot)) translateX(34%)}}
+@keyframes buffGiftLeave{to{opacity:0;transform:scale(.985);filter:blur(5px)}}
+
+/* light theme keeps the polish but avoids dark-only spotlight mud */
+html[data-theme="light"] .buff-spotlight::before{background:radial-gradient(460px circle at var(--spot-x) var(--spot-y),rgba(255,109,53,.075),transparent 46%)}
+html[data-theme="light"] body.buff-motion-ready::before{opacity:.12}html[data-theme="light"] body.buff-motion-ready::after{opacity:.08}
+
+@media(max-width:800px){
+  .buff-spotlight::before{display:none}.buff-beam::after{opacity:.45}.live-card:hover,.replay-card:hover,.clip-card:hover,.media-library-card:hover,.channel-video-card:hover{transform:none}
+  .buff-gift-epic .buff-gift-card,.buff-gift-legendary .buff-gift-card{min-width:calc(100vw - 28px);padding:14px 16px}.buff-gift-legendary .buff-gift-icon{font-size:3.3rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  body.buff-motion-ready::before,body.buff-motion-ready::after,.buff-beam::after,.buff-spotlight::before{display:none!important}.buff-reveal{opacity:1!important;transform:none!important;filter:none!important}
+}
+/* V16 cinematic gift layer: fast social-video style without blocking the stream */
+.buff-gift-flare{position:absolute;left:50%;top:50%;width:min(78vw,780px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.3) rotate(-12deg);background:conic-gradient(from 0deg,transparent 0 8%,color-mix(in srgb,var(--gift-accent2) 18%,transparent) 9% 11%,transparent 12% 24%,color-mix(in srgb,var(--gift-accent) 16%,transparent) 25% 27%,transparent 28% 100%);filter:blur(1px);opacity:0;pointer-events:none}
+.buff-gift-scene.is-playing .buff-gift-flare{animation:buffGiftFlare 1.25s cubic-bezier(.2,.8,.2,1) both}
+.buff-gift-stage-label{position:absolute;top:12%;left:50%;transform:translate(-50%,-18px) scale(.92);padding:6px 13px;border:1px solid color-mix(in srgb,var(--gift-accent2) 55%,transparent);border-radius:999px;background:rgba(7,8,11,.64);backdrop-filter:blur(15px);color:#fff;font-size:.62rem;font-weight:950;letter-spacing:.18em;opacity:0;text-shadow:0 0 18px var(--gift-accent)}
+.buff-gift-scene.is-playing .buff-gift-stage-label{animation:buffGiftStageLabel .55s .16s var(--buff-spring) forwards}
+.buff-gift-coin{position:absolute;z-index:2;top:-9%;left:var(--left);font-style:normal;font-weight:1000;color:#ffd45d;font-size:17px;text-shadow:0 3px 10px rgba(255,166,33,.65);opacity:0}.buff-gift-scene.is-playing .buff-gift-coin{animation:buffGiftCoinFall var(--dur) cubic-bezier(.18,.7,.28,1) var(--delay) forwards}
+.buff-gift-epic .buff-gift-backdrop,.buff-gift-legendary .buff-gift-backdrop{background:radial-gradient(circle at 50% 47%,color-mix(in srgb,var(--gift-accent) 26%,transparent),rgba(5,6,9,.12) 38%,transparent 72%)}
+.buff-gift-legendary .buff-gift-stage-label{top:8%;font-size:.72rem;padding:8px 18px;border-color:rgba(255,230,159,.7);box-shadow:0 0 35px rgba(255,190,68,.25)}
+.buff-gift-legendary .buff-gift-card{animation-duration:.82s!important}.buff-gift-legendary.is-playing:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(110deg,transparent 22%,rgba(255,255,255,.1) 48%,transparent 74%);transform:translateX(-130%);animation:buffGiftScreenSweep 1.5s .25s ease-out forwards}
+@keyframes buffGiftFlare{0%{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(-16deg)}35%{opacity:1}100%{opacity:.16;transform:translate(-50%,-50%) scale(1.2) rotate(12deg)}}
+@keyframes buffGiftStageLabel{to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes buffGiftCoinFall{0%{opacity:0;transform:translate3d(0,-10vh,0) rotate(0)}12%{opacity:1}100%{opacity:0;transform:translate3d(var(--drift),112vh,0) rotate(720deg)}}
+@keyframes buffGiftScreenSweep{to{transform:translateX(130%)}}

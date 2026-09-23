@@ -1,0 +1,2 @@
+Yalnızca giriş/kayıt 500 hatası ve giriş/kayıt ekranı boşluk/tasarım yoğunluğu düzeltildi.
+Tam şema bootstrap sürüm kontrolü 12.7.0 ile eşlendi ve auth istekleri tam SQL kurulum hatalarına bağımlı olmaktan çıkarıldı.

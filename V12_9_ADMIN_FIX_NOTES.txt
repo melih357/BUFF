@@ -1,0 +1,8 @@
+BUFF V12.9 ADMIN STABLE
+
+- Admin giriş akışı Creator Studio şemasından ayrıldı.
+- Admin paneli eksik opsiyonel tablolarda boş liste gösterir; tüm panel 500 ile çökmez.
+- Destek talepleri ve site şikayetleri runtime şema kontrolüyle doğrudan admin kutusuna düşer.
+- Yayıncı/kullanıcı/içerik şikayetleri runtime reports şemasıyla çalışır.
+- Kullanıcı yönetiminde Engelle, Banla ve Aktifleştir aksiyonları vardır.
+- Ana sayfadaki home collection kartlarında auto-margin kaynaklı geniş boşluklar kaldırıldı.

@@ -1,0 +1,9 @@
+BUFF V14.2
+- Admin kendi hesabını banlayamaz/engelleyemez/kendi admin rolünü kaldıramaz.
+- Aktifleştir aksiyonu yalnızca banned/blocked hesaplarda çalışır.
+- VIP Plus/Pro/Premium seçilebilir ve kaldırılabilir.
+- Admin erişimi 1 saat, 3 saat, 1 gün, 1 hafta veya süresiz devredilebilir.
+- Admin kendi e-posta ve şifresini değiştirebilir.
+- Şikayet/destek formlarındaki async event.currentTarget reset hatası düzeltildi.
+- Site i18n dinamik düğüm çevirisi düzeltildi; TR/EN/DE/ES/AR korunur.
+- Admin paneline bağımsız TR/EN dil seçimi eklendi.

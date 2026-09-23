@@ -1,0 +1,8 @@
+BUFF V13.4 Admin Schema Fix
+
+Bu revizyonda yalnızca admin panelinde eksik tablo nedeniyle açılmayan modüller onarıldı.
+Admin API açıldığında eksik V13 tabloları idempotent olarak otomatik oluşturulur:
+CMS, asset, sezon/bölüm, koleksiyon, paket, stream key, EPG, transcoding, DRM,
+IP engel, duyuru ve bildirim tabloları.
+Destek ve şikayet admin yanıt kolonları da otomatik tamamlanır.
+Mevcut kullanıcı/site verileri silinmez.

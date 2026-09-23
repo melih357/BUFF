@@ -1,0 +1,20 @@
+BUFF V13 ADMIN CONTROL CENTER
+
+Admin giriş: /frontend/admin-login.php
+Yerel bootstrap: .env içindeki ADMIN_EMAIL / ADMIN_PASSWORD
+
+V13 ana değişiklikler:
+- Normal kullanıcı oturumundan ayrı admin oturumu.
+- Admin girişinden sonra ayrı Control Center arayüzü.
+- Kullanıcı ban/engel/aktif işlemleri.
+- Kanal/içerik şikayetleri ve site şikayetleri ayrı kuyruklar.
+- Admin yanıtı kullanıcı bildirim kutusuna düşer.
+- Aynı kanal kullanıcı başına en fazla 3 kez şikayet edilebilir.
+- CMS: film/dizi/canlı katalog, medya asset, sezon/bölüm, koleksiyon ve kategori.
+- Medya yükleme ve modal önizleme.
+- Paket/üyelik ve ödeme izleme.
+- Canlı yayın, stream key, EPG, transcode queue, DRM/geo politika kayıtları, IP engelleme.
+- Analitik, gelir, RBAC, duyuru, audit log ve sistem sağlığı.
+- Ana sayfa genişlik/grid dengesi ve sağ boşluk düzeltmesi.
+
+Not: Widevine/FairPlay, gerçek CDN GeoIP ve gerçek HLS/DASH transcoder harici sağlayıcı/servis gerektirir. Panel bunların politika/operasyon kayıtlarını yönetir; sağlayıcı entegrasyonu olmadan lisanslama veya gerçek encoding işlemi yapmaz.

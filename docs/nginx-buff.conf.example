@@ -1,0 +1,40 @@
+server {
+    listen 80;
+    server_name buff.example.com;
+    return 301 https://$host$request_uri;
+}
+server {
+    listen 443 ssl http2;
+    server_name buff.example.com;
+    root /var/www/buff;
+    index index.php;
+
+    # Configure your TLS certificate here (or let Certbot manage it).
+    ssl_certificate /etc/letsencrypt/live/buff.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/buff.example.com/privkey.pem;
+
+    client_max_body_size 260m;
+    location ~ ^/uploads/(clips|recordings|feed|thumbnails|variants|\.chunks)/ { return 403; }
+    location / { try_files $uri $uri/ /index.php?$query_string; }
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    # Same-origin WebSocket proxy: HttpOnly buff_token cookie remains available.
+    location /realtime {
+        proxy_pass http://127.0.0.1:3000/realtime;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_read_timeout 75s;
+    }
+    location /node-health { proxy_pass http://127.0.0.1:3000/api/health; }
+    location /node-metrics { proxy_pass http://127.0.0.1:3000/metrics; allow 127.0.0.1; deny all; }
+
+    location ~ /\.(?!well-known) { deny all; }
+    location ~* \.(?:css|js|jpg|jpeg|png|webp|gif|svg|ico|woff2)$ { expires 7d; add_header Cache-Control "public"; }
+}

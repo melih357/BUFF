@@ -1,0 +1,34 @@
+{
+  "name": "buff-platform",
+  "version": "17.0.0",
+  "private": true,
+  "description": "BUFF V17: live streaming, private accounts, replay visibility, paid gifts and social media.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "worker": "node backend/worker.js",
+    "dev": "nodemon backend/server.js",
+    "db:setup": "node backend/src/setup-db.js",
+    "migrate": "node backend/src/setup-db.js",
+    "repair": "node backend/src/setup-db.js",
+    "check": "node --check backend/server.js && node --check backend/worker.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.879.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.4",
+    "prom-client": "^15.1.3",
+    "redis": "^5.8.2",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

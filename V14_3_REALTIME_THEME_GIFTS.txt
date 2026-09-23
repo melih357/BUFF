@@ -1,0 +1,8 @@
+BUFF V14.3
+- Bildirimler WebSocket + kalıcı DB polling fallback ile sayfa yenilemeden güncellenir.
+- Bildirim tıklaması okunma durumunu veritabanına kaydetmeden yönlenmez; destek/şikayet cevabını doğrudan açar.
+- Destek/şikayet yanıt listesi canlı güncellenir.
+- Dark/light tema ve dil butonu kontrastları düzeltildi.
+- İzleyici yayına bağlanmak için gecikme süresi kadar beklemez; gecikme playout buffer'a uygulanır.
+- Hediyeler yayın gecikmesinden bağımsız realtime olay olarak gelir.
+- Hediye animasyon kuyruğu, combo rozeti, tier bazlı efektler ve geliştirilmiş mobil görünüm eklendi.

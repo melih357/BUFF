@@ -1,0 +1,2 @@
+Yalnızca Creator Studio canlı yayın başlatırken görülen users tablosu kontrolü düzeltildi.
+Diğer tasarım, ödeme, admin, VOD, chat veya veritabanı yapıları değiştirilmedi.

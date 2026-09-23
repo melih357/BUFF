@@ -1,0 +1,11 @@
+BUFF V14.4 BUILD VALIDATION
+===========================
+PHP syntax scan: 121 files OK
+JavaScript syntax scan: 41 files OK
+VOD immediate Replay visibility: enabled (original file ready, HLS/DASH async)
+Stream-ended realtime event + polling fallback: enabled
+Viewer end-of-stream choice modal: enabled
+Ended stream replay discovery: enabled
+Creator weekly analytics endpoint: enabled
+Stream metric samples schema: enabled
+Studio realtime gift event consumption: enabled

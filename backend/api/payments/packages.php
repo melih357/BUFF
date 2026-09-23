@@ -1,0 +1,1 @@
+<?php require_once dirname(__DIR__,2).'/bootstrap.php';$items=[];foreach(v17_packages() as $n=>$p)$items[]=['coins'=>$n,'amountKurus'=>$p];json_response(['packages'=>$items]);

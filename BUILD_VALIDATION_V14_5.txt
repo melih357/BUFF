@@ -1,0 +1,16 @@
+BUFF V14.5 CHANNEL COMMUNITY BUILD
+==================================
+PHP syntax scan: 120 files, OK
+JavaScript syntax scan: 41 files, OK
+V14 static structure verification: OK
+
+V14.5 additions:
+- Weekly channel schedule editor + public schedule card
+- Social network showcase
+- Community goal progress card on public channel and creator profile
+- Top supporter leaderboard
+- Consecutive identical gift aggregation
+- Supporter avatars
+- 3/2/1-column recent-support grid
+- max-height 400px internal scrolling
+- "Tümünü Gör" support modal

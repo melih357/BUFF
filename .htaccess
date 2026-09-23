@@ -1,0 +1,4 @@
+Options -Indexes
+<FilesMatch "^(\.env|.*\.sql)$">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,1 @@
+<?php require dirname(__DIR__).'/recordings/list.php';

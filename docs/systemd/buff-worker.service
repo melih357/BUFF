@@ -1,0 +1,18 @@
+[Unit]
+Description=BUFF V14 Media/Async Worker
+After=network.target mariadb.service redis-server.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/buff
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /var/www/buff/backend/worker.js
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

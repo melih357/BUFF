@@ -1,0 +1,3 @@
+<?php
+declare(strict_types=1);require_once dirname(__DIR__,2).'/bootstrap.php';$u=require_auth();
+try{$st=db()->prepare('SELECT id,session_key,ip_address,user_agent,last_seen_at,created_at FROM user_sessions WHERE user_id=? ORDER BY last_seen_at DESC LIMIT 20');$st->execute([(int)$u['id']]);$cur=session_id();json_response(['sessions'=>array_map(static fn($r)=>['id'=>(int)$r['id'],'ip'=>$r['ip_address'],'userAgent'=>$r['user_agent'],'lastSeenAt'=>$r['last_seen_at'],'createdAt'=>$r['created_at'],'current'=>hash_equals((string)$r['session_key'],$cur)],$st->fetchAll())]);}catch(Throwable $e){json_response(['message'=>'Oturumlar alınamadı.'],500);}

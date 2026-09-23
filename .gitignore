@@ -1,0 +1,11 @@
+.env
+.env.production
+node_modules/
+logs/
+*.log
+uploads/*
+!uploads/README.txt
+!uploads/avatars/
+!uploads/avatars/.gitkeep
+.DS_Store
+Thumbs.db
