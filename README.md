@@ -1,4 +1,69 @@
-# BUFF V18
+
+<div align="center">
+
+# 🎥 BUFF
+
+### Live Streaming & Community Platform
+
+A modern live-streaming platform focused on
+real-time communication, community engagement,
+and interactive digital experiences.
+
+**PHP • Node.js • MySQL • JavaScript**
+
+</div>
+
+---
+
+## 🌟 About BUFF
+
+BUFF is a modular web platform designed to bring
+live streaming, communities, and interactive
+features together.
+
+The project explores modern web architecture,
+real-time communication, media management,
+and user-centered interface design.
+
+## 🚀 Project Features
+
+- Live streaming infrastructure
+- Real-time chat and interaction
+- User accounts and profiles
+- Community management
+- Content discovery
+- Media management
+- Administration and moderation tools
+- Responsive user interface
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| PHP | Backend development |
+| Node.js | Real-time services |
+| MySQL | Database management |
+| JavaScript | Interactive frontend |
+| HTML & CSS | User interface |
+
+## 📌 Project Status
+
+**Under Active Development**
+
+Features and infrastructure may change
+as the project evolves.
+
+---
+
+## 👨‍💻 Developer
+
+**Melih Efe Ercan**
+
+[GitHub](https://github.com/melih357) |
+[LinkedIn](https://www.linkedin.com/in/melihefeercan/)
+
+---
+
 
 Güncel arayüz, canlı sohbet ve hediye düzeltmeleri: **[REVIZYON_V18.md](REVIZYON_V18.md)**.
 
