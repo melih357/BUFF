@@ -1,79 +1,57 @@
-
 <div align="center">
 
-# 🎥 BUFF
+![BUFF GitHub Banner](docs/assets/buff-github-banner.png)
 
-### Live Streaming & Community Platform
+# BUFF — Live Streaming & Community Platform
 
-A modern live-streaming platform focused on
-real-time communication, community engagement,
-and interactive digital experiences.
+A modular web project exploring live streaming, real-time community interaction, media and creator tools.
 
-**PHP • Node.js • MySQL • JavaScript**
+**PHP · Node.js · MySQL · JavaScript**
+
+[Project repository](https://github.com/melih357/BUFF) · [Developer LinkedIn](https://www.linkedin.com/in/melihefeercan/)
 
 </div>
 
 ---
 
-## 🌟 About BUFF
+## Overview
 
-BUFF is a modular web platform designed to bring
-live streaming, communities, and interactive
-features together.
+BUFF combines streaming, live chat, community features, content discovery and administrative tools in a single project. The repository contains multiple development iterations and supporting infrastructure modules.
 
-The project explores modern web architecture,
-real-time communication, media management,
-and user-centered interface design.
+## Feature areas
 
-## 🚀 Project Features
+- Live broadcasts and real-time chat
+- Profiles, following and communities
+- Clips, feed and content discovery
+- Creator tools, gifts and loyalty features
+- Media storage, transcoding and asynchronous workers
+- Moderation, administration and monitoring components
 
-- Live streaming infrastructure
-- Real-time chat and interaction
-- User accounts and profiles
-- Community management
-- Content discovery
-- Media management
-- Administration and moderation tools
-- Responsive user interface
+> **Status:** In development. Repository implementation and documentation do not by themselves establish that every module has been end-to-end tested or is production-ready.
 
-## 🛠️ Technology Stack
+## Technologies
 
-| Technology | Purpose |
-|---|---|
-| PHP | Backend development |
-| Node.js | Real-time services |
-| MySQL | Database management |
-| JavaScript | Interactive frontend |
-| HTML & CSS | User interface |
+| Layer | Technologies / components |
+| --- | --- |
+| Web application | PHP, HTML, CSS, JavaScript |
+| Realtime services | Node.js, WebSocket |
+| Database | MySQL / MariaDB |
+| Optional infrastructure | Redis, object storage, FFmpeg, workers |
+| Monitoring integrations | Prometheus / Grafana and optional ELK |
 
-## 📌 Project Status
+## Screenshots
 
-**Under Active Development**
+Actual interface screenshots will be added after running and verifying the application. The banner above is project branding, **not** a screenshot of the working UI.
 
-Features and infrastructure may change
-as the project evolves.
+## Releases and documentation
 
----
+- [Latest V18 notes](REVIZYON_V18.md)
+- [V17 notes](REVIZYON_V17.md)
+- [Architecture](docs/ARCHITECTURE_V14.md)
 
-## 👨‍💻 Developer
-
-**Melih Efe Ercan**
-
-[GitHub](https://github.com/melih357) |
-[LinkedIn](https://www.linkedin.com/in/melihefeercan/)
+The original technical and installation documentation is retained below.
 
 ---
-
-
-Güncel arayüz, canlı sohbet ve hediye düzeltmeleri: **[REVIZYON_V18.md](REVIZYON_V18.md)**.
-
-## Önceki sürüm: BUFF V17
-
-Güncel değişiklikler, görünürlük seçenekleri ve mevcut sunucuyu güncelleme adımları: **[REVIZYON_V17.md](REVIZYON_V17.md)**. Doğrulama: **[BUILD_VALIDATION_V17.txt](BUILD_VALIDATION_V17.txt)**.
-
-V17 medya erişim kuralları eski V14 CDN/medya yönergelerinin önüne geçer. Aşağıda temel kurulum ve önceki mimari bilgileri korunmuştur.
-
-BUFF V14 is a hybrid PHP + Node.js live-streaming/community platform. The package keeps local XAMPP fallback behavior while providing production adapters for Redis, S3/R2/MinIO, FFmpeg HLS/DASH, realtime WebSocket events, asynchronous workers, PayTR, moderation, observability and gamification.
 
 ## Included V14 layers
 
@@ -96,13 +74,13 @@ Requirements: XAMPP with PHP 8.2+ and MySQL/MariaDB, Node.js 20+, npm, and FFmpe
 
 1. Extract the `BUFF` folder to `C:\xampp\htdocs\dnm` (or another folder under `htdocs`).
 2. Start Apache and MySQL from XAMPP.
-3. Open `.env`. The bundled file is configured for local development (`DB_DATABASE=buff_v126`, storage `local`, Redis off).
+3. Open `.env`. The bundled file is configured for local development (`DB_DATABASE=<your_local_database>`, storage `local`, Redis off).
 4. Run `KURULUM.bat`. It opens `install.php`, executes the single schema `database/BUFF_DATABASE_SETUP.sql`, creates/repairs the V14 tables and seeds the development admin.
 5. In a terminal in the project root run `npm install` once. `KURULUM.bat` also offers this when npm is available.
 6. Run `SERVISLERI_BASLAT.bat` to start the Node realtime server and async worker. Apache/MySQL must remain running.
 7. Open `http://localhost/dnm/frontend/`.
 
-Development admin defaults are `buffyonetim@gmail.com` / `admin123`. Change them before exposing the project to a network.
+For local testing, configure an administrator account securely. Never reuse example credentials on a public deployment.
 
 Redis and object storage are optional locally. With `REDIS_ENABLED=0` and `STORAGE_PROVIDER=local`, the platform uses MySQL/local-disk fallbacks.
 
